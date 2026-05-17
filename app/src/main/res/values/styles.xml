@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Weather App Design System: Glassmorphism + Aurora UI -->
+    <!-- Primary: Sky Blue #0284C7, Accent: Sun Amber #F59E0B -->
+
+    <style name="Theme.CloudViewer" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#0284C7</item>
+        <item name="colorPrimaryDark">#015C8A</item>
+        <item name="colorAccent">#F59E0B</item>
+        <item name="android:windowBackground">@drawable/bg_gradient</item>
+        <item name="android:statusBarColor">#015C8A</item>
+    </style>
+
+    <style name="WeatherCard" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/card_glass</item>
+        <item name="android:elevation">8dp</item>
+    </style>
+
+    <style name="CityText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TempText">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="InfoLabel">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#E0F0F8</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="RefreshButton">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">@drawable/btn_refresh</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <color name="primary">#0284C7</color>
+    <color name="primary_dark">#015C8A</color>
+    <color name="accent">#F59E0B</color>
+    <color name="background_light">#F0F9FF</color>
+    <color name="card_glass_bg">#33FFFFFF</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#E0F0F8</color>
+    <color name="text_muted">#94A3B8</color>
+    <color name="divider">#40FFFFFF</color>
+</resources>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CloudViewer - Weather App with Glassmorphism UI -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
+
+    <!-- 卫星云图 WebView - 全屏背景 -->
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true" />
+
+    <!-- 顶部渐变遮罩 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/gradient_top_fade" />
+
+    <!-- 天气信息卡片 - 毛玻璃效果 -->
+    <LinearLayout
+        android:id="@+id/weather_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="12dp"
+        android:background="@drawable/card_glass"
+        android:elevation="12dp"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- 第一行: 城市 + 刷新按钮 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!-- 定位图标 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📍"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/city_name"
+                    style="@style/CityText"
+                    android:layout_marginStart="6dp" />
+            </LinearLayout>
+
+            <!-- 刷新按钮 -->
+            <Button
+                android:id="@+id/refresh_btn"
+                style="@style/RefreshButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:elevation="4dp" />
+        </LinearLayout>
+
+        <!-- 第二行: 天气图标 + 温度 + 云量 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- 天气图标 -->
+            <TextView
+                android:id="@+id/weather_icon"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:gravity="center"
+                android:text="☀️"
+                android:textSize="36sp" />
+
+            <!-- 温度 -->
+            <TextView
+                android:id="@+id/temperature"
+                style="@style/TempText"
+                android:layout_marginStart="8dp"
+                android:text="--°C" />
+
+            <!-- 右侧信息 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="☁️"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/cloud_cover"
+                        style="@style/InfoLabel"
+                        android:layout_marginStart="4dp"
+                        android:text="云量: --" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/humidity"
+                    style="@style/InfoLabel"
+                    android:layout_marginTop="2dp"
+                    android:text="湿度: --" />
+
+                <TextView
+                    android:id="@+id/last_update"
+                    style="@style/InfoLabel"
+                    android:layout_marginTop="2dp"
+                    android:text="更新于 --" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 底部装饰线 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/divider" />
+
+        <!-- 状态提示文字 -->
+        <TextView
+            android:id="@+id/status_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="正在获取天气..."
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <!-- 错误提示横幅 -->
+    <LinearLayout
+        android:id="@+id/error_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="12dp"
+        android:background="@drawable/card_error"
+        android:elevation="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⚠️"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/error_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:text="网络连接异常"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/retry_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_marginStart="8dp"
+            android:background="#F59E0B"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:text="重试"
+            android:textColor="#0F172A"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</RelativeLayout>
