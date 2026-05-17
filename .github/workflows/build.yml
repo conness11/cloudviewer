@@ -1,4 +1,4 @@
-ame: Build APK
+name: Build APK
 on: push
 jobs:
   build:
@@ -9,10 +9,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      - uses: gradle/actions/setup-gradle@v3
       - name: Build debug APK
-        run: |
-          chmod +x gradlew
-          ./gradlew assembleDebug
+        run: gradle assembleDebug
       - uses: actions/upload-artifact@v3
         with:
           name: app-debug
