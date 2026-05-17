@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     private double currentLat, currentLon;
     private boolean hasLocation = false;
+    private volatile boolean isDestroyed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,8 +154,11 @@ public class MainActivity extends AppCompatActivity {
             try {
                 String city = getCityFromLocation(currentLat, currentLon);
                 JSONObject weatherData = getWeatherData(currentLat, currentLon);
-                mainHandler.post(() -> updateUI(city, weatherData));
-                updateCloudMap(currentLat, currentLon);
+                mainHandler.post(() -> {
+                    if (isDestroyed) return;
+                    updateUI(city, weatherData);
+                    updateCloudMap(currentLat, currentLon);
+                });
             } catch (Exception e) {
                 e.printStackTrace();
                 mainHandler.post(() -> showError("天气数据加载失败，请检查网络连接"));
@@ -284,8 +288,11 @@ public class MainActivity extends AppCompatActivity {
                     executorService.execute(() -> {
                         try {
                             JSONObject weatherData = getWeatherData(currentLat, currentLon);
-                            mainHandler.post(() -> updateUI(cityName.getText().toString(), weatherData));
-                            updateCloudMap(currentLat, currentLon);
+                            mainHandler.post(() -> {
+                                if (isDestroyed) return;
+                                updateUI(cityName.getText().toString(), weatherData);
+                                updateCloudMap(currentLat, currentLon);
+                            });
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -323,6 +330,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        isDestroyed = true;
         stopAutoRefresh();
         executorService.shutdown();
         if (webView != null) {
